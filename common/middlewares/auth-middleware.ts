@@ -5,7 +5,7 @@ import { jwtSecret } from '../jwt/jwt-secret'
 
 
 export const authMiddleware : MiddlewareHandler = async (c:Context, next) => {
-    const token = getCookie(c, 'token')
+    const token = await getCookie(c, 'token')
     // cek token
     if (!token) return c.json({message: 'unauthenticated'}, 401)
     

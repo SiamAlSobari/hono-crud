@@ -6,4 +6,6 @@ import { authMiddleware } from "../../common/middlewares/auth-middleware";
 
 export const authRoute = new Hono()
 
-authRoute.post('/register',zValidator('json',authSchema.register),authMiddleware,authController.register)
+authRoute.post('/register',zValidator('json',authSchema.register),authController.register)
+authRoute.post('/login',zValidator('json',authSchema.login),authController.login)
+authRoute.get('/me',authMiddleware,authController.me)
