@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model User {
   id String @unique @id @default(uuid())
   email String @unique
   password String 
@@ -21,18 +21,18 @@ model Users {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  profile Profiles? 
+  profile Profile? 
 }
 
-model Profiles {
+model Profile {
   id String @unique @id @default(uuid())
   name String 
-  caption String @db.Text
-  avatar_url String @default("")
+  caption String? @db.Text
+  avatar_url String @default("https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg")
   user_id String @unique
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  user Users @relation(fields: [user_id],references: [id],onDelete: Cascade)
+  user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
 }
