@@ -22,6 +22,7 @@ model User {
   updated_at DateTime @updatedAt
 
   profile Profile? 
+  posts Post[]
 }
 
 model Profile {
@@ -35,4 +36,25 @@ model Profile {
   updated_at DateTime @updatedAt
 
   user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
+}
+
+model Post {
+  id String @unique @id @default(uuid())
+  caption String?
+  user_id String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  medias Media[]
+
+  user User @relation(fields: [user_id],references: [id])
+}
+
+model Media {
+  id String @unique @id @default(uuid())
+  media_url String
+  type String
+  post_id String
+
+  post Post @relation(fields: [post_id],references: [id],onDelete: Cascade)  
 }
