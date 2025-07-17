@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { authRoute } from "./routes/auth-route";
+import { authRoute } from "./auth/auth-route";
 import { Exception } from "../common/utils/exception";
 
 const app = new Hono().basePath("/api");

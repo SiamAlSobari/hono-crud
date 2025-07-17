@@ -2,7 +2,7 @@ import { sign } from "hono/jwt";
 import { db } from "../../common/utils/database";
 import { Exception } from "../../common/utils/exception";
 import { comparePassword, hashPassword } from "../../common/utils/hash";
-import { loginInput, registerInput } from "../schema/auth-schema";
+import { loginInput, registerInput } from "./auth-schema";
 import { jwtSecret } from "../../common/jwt/jwt-secret";
 import { generateToken } from "../../common/jwt/geterate-token";
 

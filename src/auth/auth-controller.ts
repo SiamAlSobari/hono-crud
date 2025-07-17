@@ -1,6 +1,6 @@
 import { Context } from "hono";
-import { loginInput, registerInput } from "../schema/auth-schema";
-import { authService } from "../services/auth-service";
+import { loginInput, registerInput } from "./auth-schema";
+import { authService } from "./auth-service";
 import { setCookie } from "hono/cookie";
 
 const register = async (c: Context) => {
