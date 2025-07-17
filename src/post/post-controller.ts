@@ -1,13 +1,27 @@
-import { Context } from "hono"
-import { postService } from "./post-service"
+import { Context } from "hono";
+import { postService } from "./post-service";
+import { Exception } from "../../common/utils/exception";
 
 const createPost = async (c: Context) => {
-    const { caption } = await c.req.json()
-    const file = await c.req.parseBody()
-    const media = Array.isArray(file["media"]) ? file["media"] as File[] : [file["media"] as File]
-    const post = await postService.createPost(caption, media)
-    
-}
+  const reqUrl = new URL(c.req.url);
+  const baseUrl = `${reqUrl.protocol}//${reqUrl.host}`;
+  const userId = c.get("user").id;
 
+  const formData = await c.req.formData();
+  const caption = formData.get("caption")?.toString();
+  const media = formData.getAll("media") as File[];
 
-export const postController = {}
+  if (!caption?.trim() && media.length === 0) {
+    throw new Exception("caption or media is required", 400);
+  }
+
+  const post = await postService.createPost(caption || "", media, userId, baseUrl);
+
+  return c.json({
+    message: "post berhasil dibuat",
+  });
+};
+
+export const postController = {
+  createPost,
+};

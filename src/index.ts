@@ -1,12 +1,18 @@
 import { Hono } from "hono";
 import { authRoute } from "./auth/auth-route";
 import { Exception } from "../common/utils/exception";
+import { postRoute } from "./post/post-route";
+import { serveStatic } from 'hono/bun'
 
 const app = new Hono().basePath("/api");
+
+
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
+
+app.use('/uploads/*', serveStatic({ root: '../' }))
 
 // error handler
 app.onError((err, c) => {
@@ -17,9 +23,10 @@ app.onError((err, c) => {
     );
   }
 
-  return c.json({ success: false, message: "Internal Error" }, { status: 500 });
+  return c.json({ success: false, message: err.message }, { status: 500 });
 });
 
 app.route("/auth", authRoute);
+app.route("/post", postRoute);
 
 export default app;
