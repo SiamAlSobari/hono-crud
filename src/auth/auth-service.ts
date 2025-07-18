@@ -7,11 +7,14 @@ import { generateToken } from "../../common/jwt/geterate-token";
 
 class AuthService {
   public async register(input: registerInput) {
+    const roleCount = await this.roleCount();
+    const userRole = roleCount >= 3 ? "user" : "admin";
     const hasPassword = await hashPassword(input.password);
     const createUser = await db.user.create({
       data: {
         email: input.email,
         password: hasPassword,
+        role: userRole,
         profile: {
           create: {
             name: input.name,
@@ -29,7 +32,7 @@ class AuthService {
     const compare = await comparePassword(input.password, user.password);
     if (!compare) throw new Exception("wrong password", 400);
 
-    const payload = { id: user.id, email: user.email };
+    const payload = { id: user.id, email: user.email, role: user.role };
     const token = await generateToken(payload, jwtSecret!);
     return { token };
   }
@@ -41,6 +44,15 @@ class AuthService {
       },
     });
     return user;
+  }
+
+
+  public async roleCount() {
+    return await db.user.count({
+      where: {
+        role: "admin",
+      },
+    });
   }
 }
 

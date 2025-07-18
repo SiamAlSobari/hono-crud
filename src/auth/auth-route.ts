@@ -3,6 +3,7 @@ import { authController } from "./auth-controller";
 import { zValidator } from "@hono/zod-validator";
 import { authSchema } from "./auth-schema";
 import { authMiddleware } from "../../common/middlewares/auth-middleware";
+import { roleMiddleware } from "../../common/middlewares/role-middleware";
 
 export const authRoute = new Hono();
 
@@ -20,6 +21,6 @@ authRoute.post(
 
 authRoute.get(
   "/me", 
-  authMiddleware, 
+  authMiddleware,
   (c) => authController.me(c)
 );
