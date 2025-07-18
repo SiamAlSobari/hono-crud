@@ -4,4 +4,8 @@ import { authMiddleware } from "../../common/middlewares/auth-middleware";
 
 export const postRoute = new Hono();
 
-postRoute.post("/create",authMiddleware, postController.createPost);
+postRoute.post(
+    "/create",
+    authMiddleware, 
+    (c) => postController.createPost(c)
+);

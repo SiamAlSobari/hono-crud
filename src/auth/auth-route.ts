@@ -9,11 +9,17 @@ export const authRoute = new Hono();
 authRoute.post(
   "/register",
   zValidator("json", authSchema.register),
-  authController.register
+  (c) => authController.register(c)
 );
+
 authRoute.post(
   "/login",
   zValidator("json", authSchema.login),
-  authController.login
+  (c) => authController.login(c)
 );
-authRoute.get("/me", authMiddleware, authController.me);
+
+authRoute.get(
+  "/me", 
+  authMiddleware, 
+  (c) => authController.me(c)
+);
