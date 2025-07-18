@@ -10,9 +10,9 @@ class PostController {
 
     const formData = await c.req.formData();
     const caption = formData.get("caption")?.toString();
-    const media = formData.getAll("media") as File[];
+    const media = formData.get("media") as File
 
-    if (!caption?.trim() && media.length === 0) {
+    if (!caption?.trim() && media) {
       throw new Exception("caption or media is required", 400);
     }
 

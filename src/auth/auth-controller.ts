@@ -18,7 +18,7 @@ class AuthController {
   public async login(c: Context) {
     const input = (await c.req.json()) as loginInput;
     const user = await authService.login(input);
-    const cookie = await setCookie(c, "token", user.token, {
+    await setCookie(c, "token", user.token, {
       path: "/",
       maxAge: 60 * 60 * 24 * 2,
       sameSite: "lax",

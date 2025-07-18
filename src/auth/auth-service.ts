@@ -26,9 +26,11 @@ class AuthService {
   }
 
   public async login(input: loginInput) {
+    // cek user
     const user = await this.existingUser(input.email);
     if (!user) throw new Exception("user not found", 404);
 
+    // compare password
     const compare = await comparePassword(input.password, user.password);
     if (!compare) throw new Exception("wrong password", 400);
 

@@ -6,7 +6,7 @@ import { randomUUID } from "crypto";
 // Kelas layanan untuk operasi media
 class MediaService {
   // Method async untuk menyimpan array file ke disk & database
-  public async createMedia(media: File[], postId: string, baseUrl: string) {
+  public async createMedia(media: File, postId: string, baseUrl: string) {
     // Folder tujuan untuk menyimpan media
     const uploadDir = "./uploads/posts/";
 
@@ -15,16 +15,14 @@ class MediaService {
       mkdirSync(uploadDir, { recursive: true }); // recursive agar path yang dalam juga dibuat
     }
 
-    // Loop semua file media yang dikirim
-    for (const file of media) {
       // Ubah isi file menjadi array buffer (biner)
-      const arr = await file.arrayBuffer();
+      const arr = await media.arrayBuffer();
 
       // Ubah array buffer menjadi buffer Node.js (atau Bun)
       const buffer = Buffer.from(arr);
 
       // Dapatkan ekstensi file (.jpg, .png, dll)
-      const ext = path.extname(file.name);
+      const ext = path.extname(media.name);
 
       // Buat nama acak untuk file (menghindari nama bentrok)
       const randomName = randomUUID() + ext;
@@ -40,13 +38,12 @@ class MediaService {
         data: {
           post_id: postId, // Relasi ke post
           media_url: `${baseUrl}/api/uploads/posts/${randomName}`, // URL file untuk diakses frontend
-          type: file.type, // Jenis MIME, seperti 'image/png'
+          type: "long", // Jenis MIME, seperti 'image/png'
         },
       });
 
       // Logging agar tahu file berhasil disimpan (debug)
       console.log("File saved to:", filePath);
-    }
   }
 }
 

@@ -70,3 +70,4 @@ model Media {
 
   @@index([post_id])  
 }
+
