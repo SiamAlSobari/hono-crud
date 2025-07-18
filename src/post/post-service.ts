@@ -2,11 +2,12 @@ import { db } from "../../common/utils/database";
 import { mediaService } from "../media/media-service";
 
 class PostService {
-  public async createPost(caption: string, media: File, userId: string,baseUrl:string) {
+  public async createPostLongVideo(description: string, media: File, userId: string,baseUrl:string,title: string) {
     const create = await db.post.create({
       data: {
         user_id: userId,
-        caption,
+        description: description,
+        title: title,
       },
     });
 

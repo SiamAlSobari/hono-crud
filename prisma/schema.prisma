@@ -48,7 +48,8 @@ model Profile {
 
 model Post {
   id String @unique @id @default(uuid())
-  caption String?
+  description String? @db.Text
+  title  String? @db.Text
   user_id String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

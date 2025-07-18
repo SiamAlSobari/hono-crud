@@ -7,5 +7,5 @@ export const postRoute = new Hono();
 postRoute.post(
     "/create",
     authMiddleware, 
-    (c) => postController.createPost(c)
+    (c) => postController.createPostLongVideo(c)
 );
