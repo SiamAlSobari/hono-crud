@@ -2,17 +2,23 @@ import { Hono } from "hono";
 import { authRoute } from "./auth/auth-route";
 import { Exception } from "../common/utils/exception";
 import { postRoute } from "./post/post-route";
-import { serveStatic } from 'hono/bun'
+import { serveStatic } from "hono/bun";
+import { cors } from "hono/cors";
 
 const app = new Hono().basePath("/api");
-
-
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
-
-app.use('/uploads/*', serveStatic({ root: '../' }))
+app.use(
+  "*",
+  cors({
+    origin: (origin) => origin ?? "*",
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+app.use("/uploads/*", serveStatic({ root: "../" }));
 
 // error handler
 app.onError((err, c) => {

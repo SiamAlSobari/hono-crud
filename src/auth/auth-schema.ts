@@ -11,12 +11,10 @@ const login = z.object({
   password: z.string(),
 });
 
-
 export const authSchema = {
   register,
   login,
 };
-
 
 export type registerInput = z.infer<typeof register>;
 export type loginInput = z.infer<typeof login>;

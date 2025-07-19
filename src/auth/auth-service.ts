@@ -48,7 +48,6 @@ class AuthService {
     return user;
   }
 
-
   public async roleCount() {
     return await db.user.count({
       where: {
