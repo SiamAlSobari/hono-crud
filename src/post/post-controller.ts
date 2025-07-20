@@ -12,6 +12,7 @@ class PostController {
         const description = formData.get("description")?.toString();
         const title = formData.get("title")?.toString();
         const media = formData.get("media") as File;
+        const tumbnail = formData.get("media") as File;
 
         if (!description?.trim() && media) {
             throw new Exception("caption or media is required", 400);
@@ -22,7 +23,8 @@ class PostController {
             media,
             userId,
             baseUrl,
-            title || ""
+            title || "",
+            tumbnail || ""
         );
 
         return c.json({
