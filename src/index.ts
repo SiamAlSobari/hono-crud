@@ -4,6 +4,7 @@ import { Exception } from "../common/utils/exception";
 import { postRoute } from "./post/post-route";
 import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
+import { categoryRoute } from "./category/category-route";
 
 const app = new Hono().basePath("/api");
 
@@ -34,5 +35,6 @@ app.onError((err, c) => {
 
 app.route("/auth", authRoute);
 app.route("/post", postRoute);
+app.route("category", categoryRoute);
 
 export default app;
