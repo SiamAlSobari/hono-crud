@@ -5,6 +5,7 @@ import { postRoute } from "./post/post-route";
 import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
 import { categoryRoute } from "./category/category-route";
+import { profileRoute } from "./profile/profile-route";
 
 const app = new Hono().basePath("/api");
 
@@ -36,5 +37,6 @@ app.onError((err, c) => {
 app.route("/auth", authRoute);
 app.route("/post", postRoute);
 app.route("category", categoryRoute);
+app.route("profile",profileRoute)
 
 export default app;
