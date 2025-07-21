@@ -31,9 +31,9 @@ class AuthController {
     });
   }
 
-  public async me(c: Context) {
+  public async session(c: Context) {
     const user = c.get("user");
-    return c.json({ message: "me", data: user });
+    return c.json(user)
   }
 }
 

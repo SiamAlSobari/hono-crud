@@ -20,7 +20,7 @@ authRoute.post(
 );
 
 authRoute.get(
-  "/me", 
+  "/session", 
   authMiddleware,
-  (c) => authController.me(c)
+  (c) => authController.session(c)
 );

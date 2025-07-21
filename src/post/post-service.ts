@@ -5,8 +5,9 @@ import path = require("path");
 import { randomUUID } from "crypto";
 
 class PostService {
-  public async createPostLongVideo(description: string, media: File, userId: string,baseUrl:string,title: string, tumbnail: File) {
+  public async createPostLongVideo(description: string, media: File, userId: string,baseUrl:string,title: string, tumbnail: File, ) {
     const uploadDir = "./uploads/thumbnail/";
+    const dummyCategory : string[] = []
 
     if (!existsSync(uploadDir)) {
       mkdirSync(uploadDir, { recursive: true });
@@ -25,6 +26,15 @@ class PostService {
         description: description,
         title: title,
         tumbnail_image: `${baseUrl}/uploads/thumbnail/${randomName}`,
+        postCategory: {
+          create: dummyCategory.map((category) => ({
+            category: {
+              connect: {
+                id: category,
+              },
+            },
+          }))
+        }
       },
     });
 
