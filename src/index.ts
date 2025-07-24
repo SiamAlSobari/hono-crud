@@ -16,7 +16,7 @@ app.use(
   "*",
   cors({
     origin: (origin) => origin ?? "*",
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowMethods: ["GET", "POST", "PUT","PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );

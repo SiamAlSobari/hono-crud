@@ -6,4 +6,4 @@ export const categoryRoute = new Hono();
 
 categoryRoute.post("/create", authMiddleware, (c) => categoryController.createCategory(c));
 categoryRoute.get("/list", authMiddleware, (c) => categoryController.getCategories(c));
-
+categoryRoute.patch("/update/:id", authMiddleware, (c) => categoryController.updateCategory(c));
