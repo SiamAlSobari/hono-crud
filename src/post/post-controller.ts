@@ -43,9 +43,19 @@ class PostController {
     }
 
     public async getPosts(c: Context) {
-        // Implementation for fetching posts can be added here
+        const posts = await postService.getPosts();
         return c.json({
             message: "Posts berhasil diambil.",
+            data: posts,
+        });
+    }
+
+    public async getPost(c: Context) {
+        const userId = c.get("user").id;
+        const post = await postService.getPost(userId);
+        return c.json({
+            message: "Posts berhasil diambil.",
+            data: post,
         });
     }
 }

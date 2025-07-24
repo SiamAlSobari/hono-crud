@@ -63,6 +63,23 @@ class PostService {
         });
         return posts;
     }
+
+    public async getPost(user_id: string) {
+        return await db.post.findMany({
+            where: {
+                user_id: user_id,
+            },
+            include: {
+                user: true,
+                postCategory: {
+                    include: {
+                        category: true,
+                    },
+                },
+                medias: true,
+            },
+        });
+    }
 }
 
 export const postService = new PostService();
