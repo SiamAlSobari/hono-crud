@@ -41,6 +41,13 @@ class PostController {
             message: "post berhasil dibuat",
         });
     }
+
+    public async getPosts(c: Context) {
+        // Implementation for fetching posts can be added here
+        return c.json({
+            message: "Posts berhasil diambil.",
+        });
+    }
 }
 
 export const postController = new PostController();

@@ -48,6 +48,21 @@ class PostService {
         await mediaService.createMedia(media, create.id, baseUrl, typeMedia);
         return create;
     }
+
+    public async getPosts() {
+        const posts = await db.post.findMany({
+            include: {
+                user: true,
+                postCategory: {
+                    include: {
+                        category: true,
+                    },
+                },
+                medias: true,
+            },
+        });
+        return posts;
+    }
 }
 
 export const postService = new PostService();

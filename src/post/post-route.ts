@@ -4,8 +4,5 @@ import { authMiddleware } from "../../common/middlewares/auth-middleware";
 
 export const postRoute = new Hono();
 
-postRoute.post(
-    "/create",
-    authMiddleware, 
-    (c) => postController.createPostLongVideo(c)
-);
+postRoute.post("/create", authMiddleware, (c) => postController.createPostLongVideo(c));
+postRoute.get("/", authMiddleware, (c) => postController.getPosts(c));
